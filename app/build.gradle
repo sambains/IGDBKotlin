@@ -1,0 +1,94 @@
+apply plugin: 'com.android.application'
+apply plugin: 'kotlin-android'
+
+android {
+    compileSdkVersion 25
+    buildToolsVersion "25.0.2"
+    defaultConfig {
+        applicationId "g33k.limited.igdbkotlin"
+        minSdkVersion 19
+        targetSdkVersion 25
+        versionCode 1
+        versionName "1.0"
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+
+        buildConfigField "String", "BASE_URL", "\"https://igdbcom-internet-game-database-v1.p.mashape.com/\""
+        buildConfigField "String", "API_KEY", "\"1FUFOIxETtmshLFI1KCq37P7xRqwp14WWYTjsnmc6kM7j0lUK4\""
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    sourceSets {
+        main.java.srcDirs += 'src/main/kotlin'
+    }
+}
+
+ext {
+    espressoCore = "2.2.2"
+    jUnit = "4.12"
+
+    stetho = "1.4.2"
+    stethoOkHttp3 = "1.4.2"
+    okHttp3LoggingInterceptor = "3.5.0"
+
+    supportAppCompat = "25.1.0"
+
+    timber = "4.4.0"
+
+    butterknife = "8.4.0"
+
+    dagger = "2.8"
+    javaxAnnotation = "10.0-b28"
+
+    rxJava = "2.0.3"
+    rxAndroid = "2.0.1"
+
+    retrofit = "2.1.0"
+    retrofitRxJava = "1.0.0"
+    retrofitGson = "2.1.0"
+}
+
+dependencies {
+    compile fileTree(dir: 'libs', include: ['*.jar'])
+    androidTestCompile("com.android.support.test.espresso:espresso-core:${espressoCore}", {
+        exclude group: 'com.android.support', module: 'support-annotations'
+    })
+    testCompile "junit:junit:${jUnit}"
+
+    debugCompile "com.facebook.stetho:stetho:${stetho}"
+    debugCompile "com.facebook.stetho:stetho-okhttp3:${stethoOkHttp3}"
+    debugCompile "com.squareup.okhttp3:logging-interceptor:${okHttp3LoggingInterceptor}"
+
+    compile "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
+
+    compile "com.android.support:appcompat-v7:${supportAppCompat}"
+
+    compile "com.jakewharton.timber:timber:${timber}"
+
+    compile "com.jakewharton:butterknife:${butterknife}"
+    kapt "com.jakewharton:butterknife-compiler:${butterknife}"
+
+    compile "com.google.dagger:dagger:${dagger}"
+    kapt "com.google.dagger:dagger-compiler:${dagger}"
+    provided "org.glassfish:javax.annotation:${javaxAnnotation}"
+
+    compile "io.reactivex.rxjava2:rxjava:${rxJava}"
+    compile "io.reactivex.rxjava2:rxandroid:${rxAndroid}"
+
+    compile "com.squareup.retrofit2:retrofit:${retrofit}"
+    compile "com.jakewharton.retrofit:retrofit2-rxjava2-adapter:${retrofitRxJava}"
+    compile "com.squareup.retrofit2:converter-gson:${retrofitGson}"
+}
+
+kapt {
+    generateStubs = true
+}
+
+repositories {
+    mavenCentral()
+}
