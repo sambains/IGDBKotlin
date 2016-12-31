@@ -16,7 +16,7 @@ abstract class BaseActivity : AppCompatActivity() {
         setContentView(getLayoutResourceId())
         unbinder = ButterKnife.bind(this)
 
-        injectDependencies(BaseApplication().getAppComponent())
+        injectDependencies(BaseApplication.appComponent)
     }
 
     override fun onDestroy() {

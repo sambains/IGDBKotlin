@@ -13,14 +13,16 @@ import timber.log.Timber
  */
 class BaseApplication : Application() {
 
-    private lateinit var appComponent: AppComponent
+    companion object {
+        @JvmStatic lateinit var appComponent: AppComponent
+    }
 
     override fun onCreate() {
         super.onCreate()
 
         initApplication()
 
-        appComponent = createAppComponent()
+        appComponent = DaggerAppComponent.builder().appModule(AppModule()).build()
     }
 
     fun initApplication() {
@@ -32,15 +34,5 @@ class BaseApplication : Application() {
                     .enableWebKitInspector(Stetho.defaultInspectorModulesProvider(this))
                     .build())
         }
-    }
-
-    fun createAppComponent(): AppComponent {
-        return DaggerAppComponent.builder()
-                .appModule(AppModule())
-                .build()
-    }
-
-    fun getAppComponent(): AppComponent {
-        return appComponent;
     }
 }
